@@ -124,7 +124,7 @@ class App extends Component {
             })
         }
     }
-    
+
     //Add tracker on press 'enter
     pressEnter(e) {
         if (e.keyCode === 13) {
@@ -160,9 +160,10 @@ class App extends Component {
                 } else if (item.seconds === 59) {
                     item.seconds = 0;
                     item.minutes = item.minutes + 1;
-                } else if (item.minutes === 59) {
-                    item.minutes = 0;
-                    item.hours = item.hours + 1;
+                    if (item.minutes === 60) {
+                        item.minutes = 0;
+                        item.hours = item.hours + 1;
+                    }
                 }
             }
         })
