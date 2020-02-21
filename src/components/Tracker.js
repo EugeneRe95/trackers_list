@@ -13,7 +13,9 @@ export class Tracker extends Component {
         }
         this.pause = this.pause.bind(this);
     }
+
     componentDidMount() {
+        // fetching tracker mode from local storage
         const trackers = JSON.parse(localStorage.getItem('trackers'));
         if (trackers !== null) {
             trackers.forEach(item => {
@@ -22,6 +24,7 @@ export class Tracker extends Component {
                 }
             })
         }
+        // mode affects whether to start timer
         if (this.state.mode === 'pause') {
             this.int = setInterval(() => {
                 this.props.change.bind(this, this.state.name)()
@@ -30,6 +33,8 @@ export class Tracker extends Component {
             clearInterval(this.int)
         }
     }
+
+    // Changing tracker mode
     pause() {
         const trackers = JSON.parse(localStorage.getItem('trackers'));
         if (this.state.mode === 'pause') {
@@ -55,12 +60,16 @@ export class Tracker extends Component {
             }, 1000);
         }
     }
+
     componentWillUnmount() {
         clearInterval(this.int)
     }
+
+    //Calling function in parent component, which deletes tracke
     delete() {
         this.props.delete(this.props.name)
     }
+    
     render() {
         return (
             <div className={"tracker-item " + this.state.mode}>

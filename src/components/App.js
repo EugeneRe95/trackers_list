@@ -21,8 +21,12 @@ class App extends Component {
         this.addTracker = this.addTracker.bind(this)
         this.interval = this.interval.bind(this)
     }
+
+    //fetching all trackers from local storage (if they exist)
     componentDidMount() {
         const trackers = JSON.parse(localStorage.getItem('trackers'))
+
+        //adding time which has passed from previous session (if that existed)
         if (localStorage.getItem('unloadTime') !== null && trackers !== null) {
             const now = new Date();
             const diff = moment.preciseDiff(now, localStorage.getItem('unloadTime'), true);
@@ -51,13 +55,47 @@ class App extends Component {
         }
         this.setState({ trackers: (trackers !== null) ? trackers : [] })
 
+        // storing time when user has left page
         window.addEventListener('beforeunload', () => {
             const now = new Date()
             localStorage.setItem('unloadTime', now)
         })
     }
+
+    //New tracker name
     handleChange(e) {
         this.setState({ newTracker: e.target.value })
+    }
+
+    //Function that adds new tracker depending on whether they already exist in local storage
+    addTracker() {
+        const trackers = JSON.parse(localStorage.getItem('trackers'));
+
+        if (trackers !== null) {
+            if (trackers.length > 0) {
+
+                // checking for existing of the tracker with specific name
+                let error = []
+                trackers.forEach(item => {
+                    if (item.name === this.state.newTracker) {
+                        error.push(true)
+                    } else {
+                        error.push(false)
+                    }
+                })
+                if (error.includes(true)) {
+                    this.setState({ error: 'show' })
+                } else {
+                    this.setState({ error: '' }, () => {
+                        this.add(trackers);
+                    })
+                }
+            } else {
+                this.add(this.state.trackers)
+            }
+        } else {
+            this.add(this.state.trackers)
+        }
     }
     add(trackers) {
         if (this.state.newTracker !== '') {
@@ -86,38 +124,15 @@ class App extends Component {
             })
         }
     }
-    addTracker() {
-        const trackers = JSON.parse(localStorage.getItem('trackers'));
-
-        if (trackers !== null) {
-            if (trackers.length > 0) {
-                let error = []
-                trackers.forEach(item => {
-                    if (item.name === this.state.newTracker) {
-                        error.push(true)
-                    } else {
-                        error.push(false)
-                    }
-                })
-                if (error.includes(true)) {
-                    this.setState({ error: 'show' })
-                } else {
-                    this.setState({ error: '' }, () => {
-                        this.add(trackers);
-                    })
-                }
-            } else {
-                this.add(this.state.trackers)
-            }
-        } else {
-            this.add(this.state.trackers)
-        }
-    }
+    
+    //Add tracker on press 'enter
     pressEnter(e) {
         if (e.keyCode === 13) {
             this.addTracker();
         }
     }
+
+    // Delete function which is called from child component 'Tracker'
     delete(name) {
         if (name === this.state.newTracker) {
             this.setState({ error: '' })
@@ -134,6 +149,8 @@ class App extends Component {
             localStorage.setItem('trackers', JSON.stringify(this.state.trackers))
         })
     }
+
+    //sets interval and refreshes state as well as localStorage
     interval(name) {
         const trackers = JSON.parse(localStorage.getItem('trackers'));
         trackers.forEach(item => {
