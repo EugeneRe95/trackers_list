@@ -61,12 +61,9 @@ export class Tracker extends Component {
         }
     }
 
-    componentWillUnmount() {
-        clearInterval(this.int)
-    }
-
-    //Calling function in parent component, which deletes tracke
+    //Calling function in parent component, which deletes tracker
     delete() {
+        clearInterval(this.int)
         this.props.delete(this.props.name)
     }
     

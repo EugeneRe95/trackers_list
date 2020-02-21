@@ -175,7 +175,7 @@ class App extends Component {
         return (
             <main>
                 <div className="container">
-                    <h1>Tracker</h1>
+                    <h1>Trackers list</h1>
                     <div className="add-tracker">
                         <TextField id="input" label="Enter tracker name" variant="filled" size="small" vlaue={this.state.newTracker} onChange={this.handleChange} onKeyUp={this.pressEnter.bind(this)} />
                         <Button variant="contained" color="primary" onClick={this.addTracker}>

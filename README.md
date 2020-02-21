@@ -13,4 +13,4 @@ When refreshing the page (or close / open the browser), the state is maintained,
 
 ### Technologies used:
 
-CSS preprocessor, Webpack, JavaScript, React js, material-ui, localStorage<br />
+CSS, Webpack, JavaScript, React js, material-ui, localStorage<br />
