@@ -149,6 +149,11 @@ class App extends Component {
             localStorage.setItem('trackers', JSON.stringify(this.state.trackers))
         })
     }
+    pause(trackers){
+        this.setState({trackers: trackers},()=>{
+            localStorage.setItem('trackers', JSON.stringify(trackers))
+        })
+    }
 
     //sets interval and refreshes state as well as localStorage
     interval(name) {
@@ -183,8 +188,8 @@ class App extends Component {
                     </div>
                     {(this.state.error !== '') ? <h3 className="message">Таймер с этим именем уже существует</h3> : null}
                     <FlipMove id="trackers">
-                        {this.state.trackers.map((item, index) => {
-                            return <Tracker key={index} name={item.name} hours={item.hours} minutes={item.minutes} seconds={item.seconds} mode={item.mode} delete={this.delete.bind(this)} change={this.interval} />
+                        {this.state.trackers.map((item) => {
+                            return <Tracker key={item.name} name={item.name} hours={item.hours} minutes={item.minutes} seconds={item.seconds} mode={item.mode} delete={this.delete.bind(this)} change={this.interval} pause={this.pause.bind(this)}/>
                         })}
                     </FlipMove>
                 </div>
