@@ -33,7 +33,6 @@ export class Tracker extends Component {
             trackers.forEach(item => {
                 if (item.name === this.props.name) {
                     item.mode = 'pause'
-                    console.log('pause')
                 }
             })
             this.props.pause.bind(this, trackers)()

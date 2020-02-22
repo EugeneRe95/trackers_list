@@ -106,7 +106,7 @@ class App extends Component {
                 seconds: 0,
                 mode: 'pause'
             }
-            const newTrackers = trackers.concat(tracker);
+            const newTrackers = [tracker].concat(trackers);
             this.setState({ trackers: newTrackers }, () => {
                 localStorage.setItem('trackers', JSON.stringify(newTrackers))
             })
@@ -118,7 +118,7 @@ class App extends Component {
                 seconds: 0,
                 mode: 'pause'
             }
-            const newTrackers = trackers.concat(tracker);
+            const newTrackers = [tracker].concat(trackers);
             this.setState({ trackers: newTrackers }, () => {
                 localStorage.setItem('trackers', JSON.stringify(newTrackers))
             })
