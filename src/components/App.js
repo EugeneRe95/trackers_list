@@ -186,7 +186,7 @@ class App extends Component {
                         <Button variant="contained" color="primary" onClick={this.addTracker}>
                             Add</Button>
                     </div>
-                    {(this.state.error !== '') ? <h3 className="message">Таймер с этим именем уже существует</h3> : null}
+                    {(this.state.error !== '') ? <h3 className="message">Tracker with such name already exists</h3> : null}
                     <FlipMove id="trackers">
                         {this.state.trackers.map((item) => {
                             return <Tracker key={item.name} name={item.name} hours={item.hours} minutes={item.minutes} seconds={item.seconds} mode={item.mode} delete={this.delete.bind(this)} change={this.interval} pause={this.pause.bind(this)}/>
