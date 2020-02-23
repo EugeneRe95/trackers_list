@@ -29,7 +29,8 @@ class App extends Component {
         //adding time which has passed from previous session (if that existed)
         if (localStorage.getItem('unloadTime') !== null && trackers !== null) {
             const now = new Date();
-            const diff = moment.preciseDiff(now, localStorage.getItem('unloadTime'), true);
+            const then= new Date(localStorage.getItem('unloadTime'));
+            const diff = moment.preciseDiff(now.toISOString(), then.toISOString(), true);
             trackers.forEach(item => {
                 if (item.mode === 'pause') {
                     item.hours = item.hours + diff.hours + diff.days * 24 + diff.months * 730 + diff.years * 730 * 12
